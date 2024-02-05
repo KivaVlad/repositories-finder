@@ -1,0 +1,45 @@
+.card__container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--gray-400);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.up__text_wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card__text {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    color: var(--gray-50);
+    opacity: .9;
+}
+
+.card__text > span {
+    color: var(--main-color);
+}
+
+.url__wrapper {
+    margin-top: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.card__link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--main-color);
+}

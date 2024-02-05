@@ -1,0 +1,132 @@
+.results__wrapper {
+    margin: 40px 0;
+}
+
+/* Form */
+.form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 16px 10px;
+    background-color: var(--gray-400);
+    border-radius: 15px;
+}
+
+.input__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+  
+.input {
+    padding: 0 10px;
+    flex-grow: 5;
+    height: 60px;
+    max-width: calc(100% - 100px - 20px);
+    border: none;
+    font-size: 1.25rem;
+    color: var(--gray-50);
+    cursor: pointer;
+    background-color: var(--gray-400);
+}
+
+.input::placeholder {
+    color: var(--gray-50);
+    opacity: .7;
+}
+  
+.error__wrapper {
+    position: absolute;
+    right: 50%;
+    bottom: 5px;
+    color: var(--error-color);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 700;
+}
+
+.button {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--main-color);
+    color: var(--gray-50);
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: .2s ease;
+    cursor: pointer;
+}
+
+.button:active {
+    transform: scale(0.92);
+}
+
+/* Results */
+.title {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-weight: 700;
+    color: var(--gray-50);
+}
+
+.result__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.loader__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20px;
+    margin-top: 20px;
+}
+
+.loader__wrapper > span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gray-50);
+    opacity: .9;
+}
+
+
+@media screen and (min-width: 767px) {
+    .form {
+        padding: 10px 10px 10px 30px;
+    }
+
+    .error__wrapper {
+        right: 120px;
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: unset;
+    }
+
+    .input {
+        margin: 0 5px;
+        font-size: 1.25rem;
+        margin: 0 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .input {
+        max-width: 100%;
+    }
+
+    .button {
+        width: 100%;
+    }
+}
+
