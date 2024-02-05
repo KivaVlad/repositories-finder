@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/repositories-finder/static/css/main.f880e904.css",
+    "main.js": "/repositories-finder/static/js/main.a2670286.js",
+    "index.html": "/repositories-finder/index.html",
+    "static/media/icon-search.svg": "/repositories-finder/static/media/icon-search.0cc0c98424cc75d5e1dfbb9e3abb6785.svg",
+    "main.f880e904.css.map": "/repositories-finder/static/css/main.f880e904.css.map",
+    "main.a2670286.js.map": "/repositories-finder/static/js/main.a2670286.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f880e904.css",
+    "static/js/main.a2670286.js"
+  ]
+}
