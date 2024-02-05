@@ -15,7 +15,6 @@ export const Main: React.FC = () => {
     const [page, setPage] = useState(1);
     const words = ['результат', 'результата', 'результатов'];
     const dispatch = useAppDispatch();
-    
 
     function reset() {
         setPage(1);
@@ -44,9 +43,9 @@ export const Main: React.FC = () => {
     useEffect(() => {
         if (error) return
 
-        function handleScroll() {
+        const scrollHandler = (e: any) => {
             if (total_count > items.length) {
-                const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
+                const bottom = e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 1;
 
                 if (bottom) {
                     setPage(page + 1);
@@ -55,9 +54,9 @@ export const Main: React.FC = () => {
             }
         }
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', scrollHandler);
         return function() {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', scrollHandler);
         }
     })
 
