@@ -3,36 +3,43 @@ import { useAppDispatch, useAppSelector } from '../../store/hook';
 import { fetchRepositories, resetResults } from '../../store/slice/repoSlice';
 import { transformWords } from '../../utils';
 import { Card } from '../Card/Card';
-import type { IRepoCard, ISearchData } from '../../types/data';
+import type { IRepoCard } from '../../types/data';
 
 import styles from './Main.module.css';
 import loopImg from '../../assets/icons/icon-search.svg';
 
 export const Main: React.FC = () => {
     const { loading, error, items, total_count } = useAppSelector((state) => state.repositories);
-    const [reponame, setReponame] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalWords = ['результат', 'результата', 'результатов'];
+    const [isFetching, setIsFetching] = useState(false);
+    const [name, setName] = useState('');
+    const [page, setPage] = useState(1);
+    const words = ['результат', 'результата', 'результатов'];
     const dispatch = useAppDispatch();
-
-    const data: ISearchData = {
-        name: reponame,
-        page: currentPage,
-    }
+    
 
     function reset() {
-        setCurrentPage(1);
+        setPage(1);
         dispatch(resetResults());
     }
+
+
+    useEffect(() => {
+        if (isFetching) {
+            dispatch(fetchRepositories({ name, page }));
+            setIsFetching(false);
+        }
+    }, [isFetching, dispatch, name, page])
+    
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
 
-        if (reponame.trim()) {
+        if (name.trim()) {
             reset();
-            dispatch(fetchRepositories(data));
+            setIsFetching(true);
         }
     }
+
 
     useEffect(() => {
         if (error) return
@@ -42,8 +49,8 @@ export const Main: React.FC = () => {
                 const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
 
                 if (bottom) {
-                    setCurrentPage(currentPage + 1);
-                    dispatch(fetchRepositories(data));
+                    setPage(page + 1);
+                    setIsFetching(true);
                 }
             }
         }
@@ -53,6 +60,7 @@ export const Main: React.FC = () => {
             window.removeEventListener('scroll', handleScroll);
         }
     })
+
 
     return (
         <main className={styles.main}>
@@ -67,8 +75,8 @@ export const Main: React.FC = () => {
                             autoComplete='off'
                             className={styles.input}
                             placeholder="Search GitHub repositories"
-                            value={reponame}
-                            onChange={(e) => setReponame(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
@@ -88,10 +96,10 @@ export const Main: React.FC = () => {
 
             {items.length > 0 &&
                 <div className={styles.results__wrapper}>
-                    <h2 className={styles.title}>Найдено {transformWords(total_count, totalWords)}</h2>
+                    <h2 className={styles.title}>Найдено {transformWords(total_count, words)}</h2>
 
                     <div className={styles.result__cards}>
-                        {items.map((item: IRepoCard, index: number) => <Card key={index} {...item} />)}
+                        {items.map((item: IRepoCard) => <Card key={item.id} {...item} />)}
                     </div>
 
                     <div className={styles.loader__wrapper}>
