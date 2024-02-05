@@ -11,7 +11,7 @@ import loopImg from '../../assets/icons/icon-search.svg';
 export const Main: React.FC = () => {
     const { loading, error, items, total_count } = useAppSelector((state) => state.repositories);
     const [reponame, setReponame] = useState('');
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const totalWords = ['результат', 'результата', 'результатов'];
     const dispatch = useAppDispatch();
 
@@ -21,7 +21,7 @@ export const Main: React.FC = () => {
     }
 
     function reset() {
-        setCurrentPage(0);
+        setCurrentPage(1);
         dispatch(resetResults());
     }
 
