@@ -4,7 +4,6 @@ import { fetchRepositories, resetResults } from '../../store/slice/repoSlice';
 import { transformWords } from '../../utils';
 import { Card } from '../Card/Card';
 import type { IRepoCard } from '../../types/data';
-
 import styles from './Main.module.css';
 import loopImg from '../../assets/icons/icon-search.svg';
 
@@ -16,18 +15,18 @@ export const Main: React.FC = () => {
     const words = ['результат', 'результата', 'результатов'];
     const dispatch = useAppDispatch();
 
-    function reset() {
-        setPage(1);
-        dispatch(resetResults());
-    }
-
-
     useEffect(() => {
         if (isFetching) {
             dispatch(fetchRepositories({ name, page }));
             setIsFetching(false);
         }
     }, [isFetching, dispatch, name, page])
+
+
+    function reset() {
+        setPage(1);
+        dispatch(resetResults());
+    }
     
 
     function handleSubmit(e: React.FormEvent) {
@@ -43,9 +42,9 @@ export const Main: React.FC = () => {
     useEffect(() => {
         if (error) return
 
-        const scrollHandler = (e: any) => {
+        const scrollHandler = () => {
             if (total_count > items.length) {
-                const bottom = e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 1;
+                const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
 
                 if (bottom) {
                     setPage(page + 1);
@@ -55,8 +54,10 @@ export const Main: React.FC = () => {
         }
 
         window.addEventListener('scroll', scrollHandler);
+        window.addEventListener('resize', scrollHandler);
         return function() {
             window.removeEventListener('scroll', scrollHandler);
+            window.removeEventListener('resize', scrollHandler);
         }
     })
 
